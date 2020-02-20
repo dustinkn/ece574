@@ -1,0 +1,125 @@
+ECE574 Spring 2019 Homework #7
+
+Name: Derek Haas
+
+4.
+	Time taken to sobel_coarse using slurm/mpi
+
+	1 Core:
+		Load time: 0.134589
+		Convolve time: 1.172261
+		Combine time: 0.267734
+		Store time: 0.088655
+		Total time: 1.663239
+	
+	2 Cores:
+		Load time: 0.145068
+		Convolve time: 0.604844
+		Combine time: 0.279326
+		Store time: 0.088077
+		Total time: 1.117315
+	
+	4 Cores:
+		Load time: 0.126065
+		Convolve time: 0.364000
+		Combine time: 0.355895
+		Store time: 0.099689
+		Total time: 0.945648
+
+5.
+	Fine-grained: 
+
+	Briefly describe what you did:
+	
+	Read the image from all nodes rather than just rank 0
+
+	Time taken:
+
+	1 Core:
+		Load time: 0.168970
+		Convolve time: 1.143904
+		Combine time: 0.267621
+		Store time: 0.088814
+		Total time: 1.669309
+		
+	4 Cores:
+		Load time: 0.108721
+		Convolve time: 0.274000
+		Combine time: 0.368524
+		Store time: 0.096294
+		Total time: 0.847538
+	
+		Sp = 1.669309 / 0.847538 = 1.969597
+		Ep = Sp / P = 0.492399
+
+	8 Cores:
+		Load time: 0.126388
+		Convolve time: 0.186843
+		Combine time: 0.424133
+		Store time: 0.164931
+		Total time: 0.902245
+
+		Sp = 1.669309 / 0.902245 = 1.850173
+		Ep = Sp / P = 0.2312715
+
+	16 Cores:
+		Load time: 0.159521
+		Convolve time: 0.068728
+		Combine time: 0.116499
+		Store time: 0.116499
+		Total time: 0.782723
+
+		Sp = 1.669309 / 0.782723 = 2.132694
+		Ep = Sp / P = 0.1332934
+
+6.
+	Time taken on Pi Cluster
+
+	I used the Coarse for the Pi Cluster
+
+	1 (4)
+		Load time: 1.026777
+		Convolve time: 20.315602
+		Combine time: 5.452523
+		Store time: 2.488458
+		Total time: 29.283360
+		
+	2 (8)
+		Load time: 1.022241 
+		Convolve time: 10.223789
+		Combine time: 5.516377
+		Store time: 2.451544
+		Total time: 19.213951
+
+	4 (16)
+		Load time: 1.027270 
+		Convolve time: 5.496594
+		Combine time: 5.456210
+		Store time: 2.479724
+		Total time: 14.459798
+
+	8 (32)
+		Load time: 1.032980
+		Convolve time: 7.240505
+		Combine time: 9.663816
+		Store time: 2.409594
+		Total time: 20.346894
+
+	16
+		Load time: 1.023328 
+		Convolve time: 8.194840
+		Combine time: 11.011564
+		Store time: 2.365730
+		Total time: 22.595463
+		
+
+	Did it scale?  Why might it not scale well?
+
+	It started to scale up until 4 ranks.  Once more than 4 ranks are used, message passing
+	to different Raspberry Pis start (as a single pi has 4 cores so the first 4 ranks can be
+	run on 1 pi).  Message passing between Pi's could be slow as you are interfacing with more
+	than just one machine.  The total time includes sending and receiving the messages on the
+	different Pis
+
+
+
